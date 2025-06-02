@@ -3,6 +3,7 @@
 
 # Allow files and directories
 !/docker
+!/docker/*  # Include the contents of the docker directory
 !/requirements.txt
 !/tgtg_scanner
 !/pyproject.toml
