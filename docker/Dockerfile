@@ -27,6 +27,8 @@ RUN chown tgtg:tgtg ${LOGS_PATH}
 RUN chown tgtg:tgtg ${TGTG_TOKEN_PATH}
 VOLUME ${TGTG_TOKEN_PATH}
 
+WORKDIR /app  # Set the working directory
+
 # Copy the requirements.txt file into the image
 COPY requirements.txt /app/requirements.txt
 
