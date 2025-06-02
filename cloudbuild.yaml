@@ -1,0 +1,9 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/astute-maxim-458620-r4/github.com/jacobstevens1871/tgtg:$COMMIT_SHA', 'docker/']
+    env:
+      - 'DOCKER_BUILDKIT=1'
+images:
+  - 'gcr.io/astute-maxim-458620-r4/github.com/jacobstevens1871/tgtg:$COMMIT_SHA'
+options:
+  logging: 'CLOUD_LOGGING_ONLY'
