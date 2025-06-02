@@ -1,4 +1,6 @@
 steps:
+  - name: 'ubuntu'
+    args: ['ls', '-la', '.']  # Lists the contents of the current directory (build context)
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/astute-maxim-458620-r4/github.com/jacobstevens1871/tgtg:$COMMIT_SHA', 'docker/']
     env:
