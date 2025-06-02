@@ -27,9 +27,11 @@ RUN chown tgtg:tgtg ${LOGS_PATH}
 RUN chown tgtg:tgtg ${TGTG_TOKEN_PATH}
 VOLUME ${TGTG_TOKEN_PATH}
 
-RUN --mount=type=bind,target=/context \
-    pip install -r /context/requirements.txt && \
-    pip install /context
+# Copy the requirements.txt file into the image
+COPY requirements.txt /app/requirements.txt
+
+# Install dependencies
+RUN pip install -r /app/requirements.txt
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
