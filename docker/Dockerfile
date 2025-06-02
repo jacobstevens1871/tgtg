@@ -31,7 +31,7 @@ RUN --mount=type=bind,target=/context \
     pip install -r /context/requirements.txt && \
     pip install /context
 
-COPY ./docker/entrypoint.sh /entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 RUN python -m tgtg_scanner -v
