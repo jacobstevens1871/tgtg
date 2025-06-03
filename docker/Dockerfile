@@ -36,7 +36,7 @@ COPY requirements.txt /app/requirements.txt
 RUN pip install -r /app/requirements.txt
 
 # Copy the tgtg_scanner directory into the image
-COPY tgtg_scanner /app/tgtg_scanner
+COPY ../tgtg_scanner /app/tgtg_scanner
 
 # Install the tgtg_scanner
 RUN pip install /app/tgtg_scanner
