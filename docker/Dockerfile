@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM python:3.11-slim-bookworm
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
@@ -28,10 +28,8 @@ VOLUME ${TGTG_TOKEN_PATH}
 
 WORKDIR /app  # Set the working directory
 
-# Invalidate cache by copying entrypoint.sh with a unique name
-COPY entrypoint.sh entrypoint_$BUILD_ID.sh
-RUN mv entrypoint_$BUILD_ID.sh entrypoint.sh
-RUN chmod +x entrypoint.sh
+# Invalidate cache
+RUN echo "Invalidate cache" > /tmp/cache_bust
 
 # List files to debug
 RUN ls -l
@@ -48,9 +46,8 @@ COPY ../tgtg_scanner /app/tgtg_scanner
 # Install the tgtg_scanner
 RUN pip install /app/tgtg_scanner
 
-# No longer needed, performed above.
-# COPY entrypoint.sh /entrypoint.sh
-# RUN chmod +x /entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD [ "python", "-m", "tgtg_scanner" ]
