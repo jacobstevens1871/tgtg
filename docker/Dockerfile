@@ -35,15 +35,14 @@ COPY requirements.txt /app/requirements.txt
 # Install dependencies
 RUN pip install -r /app/requirements.txt
 
+# Copy the tgtg_scanner directory into the image
+COPY tgtg_scanner /app/tgtg_scanner
+
+# Install the tgtg_scanner
+RUN pip install /app/tgtg_scanner
+
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-
-# Removed the failing line from here
-# RUN python -m tgtg_scanner -v
-
-ENTRYPOINT [ "/entrypoint.sh" ]
-CMD [ "python", "-m", "tgtg_scanner" ]
-
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD [ "python", "-m", "tgtg_scanner" ]
