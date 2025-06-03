@@ -1,12 +1,12 @@
 steps:
   - name: 'ubuntu'
     args: ['ls', '-la', '.']  # Lists the contents of the current directory (build context)
-steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--cache-from=', '-t', 'gcr.io/astute-maxim-458620-r4/github.com/jacobstevens1871/tgtg:$COMMIT_SHA', '.']
-  env:
-      - 'DOCKER_BUILDKIT=1'
-      - 'CACHE_BUST=$BUILD_ID'  # Or use a timestamp: CACHE_BUST=$(date +%s)
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '--cache-from=', '-t', 'gcr.io/astute-maxim-458620-r4/github.com/jacobstevens1871/tgtg:$COMMIT_SHA', '.']
+    dir: ".."
+    env:
+        - 'DOCKER_BUILDKIT=1'
+        - 'CACHE_BUST=$BUILD_ID'  # Or use a timestamp: CACHE_BUST=$(date +%s)
 images:
   - 'gcr.io/astute-maxim-458620-r4/github.com/jacobstevens1871/tgtg:$COMMIT_SHA'
 options:
