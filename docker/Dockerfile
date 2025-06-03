@@ -5,7 +5,6 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_NO_WARN_SCRIPT_LOCATION=0 \
-    PIP_ROOT_USER_ACTION=ignore \
     AIOHTTP_NO_EXTENSIONS=1 \
     MULTIDICT_NO_EXTENSIONS=1 \
     YARL_NO_EXTENSIONS=1
@@ -29,16 +28,20 @@ VOLUME ${TGTG_TOKEN_PATH}
 
 WORKDIR /app  # Set the working directory
 
+# Invalidate cache
+RUN echo "Invalidate cache" > /tmp/cache_bust
+
+# List files to debug
+RUN ls -l
+
 # Copy the requirements.txt file into the image
 COPY requirements.txt /app/requirements.txt
 
 # Install dependencies
 RUN pip install -r /app/requirements.txt
 
-RUN ls -l
-
 # Copy the tgtg_scanner directory into the image
-COPY tgtg_scanner /app/tgtg_scanner
+COPY ../tgtg_scanner /app/tgtg_scanner
 
 # Install the tgtg_scanner
 RUN pip install /app/tgtg_scanner
@@ -48,3 +51,4 @@ RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD [ "python", "-m", "tgtg_scanner" ]
+
