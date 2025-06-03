@@ -38,7 +38,12 @@ RUN pip install -r /app/requirements.txt
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-RUN python -m tgtg_scanner -v
+# Removed the failing line from here
+# RUN python -m tgtg_scanner -v
+
+ENTRYPOINT [ "/entrypoint.sh" ]
+CMD [ "python", "-m", "tgtg_scanner" ]
+
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD [ "python", "-m", "tgtg_scanner" ]
